@@ -48,35 +48,34 @@ function createSquareDivs(size) {
 
 // Function that change background color behavior
 function addColorBehavior(square) {
-   function applyColor() {
+   function applyColor(target) {
       if (colorMode.value === 'random') {
-         const r = Math.floor(Math.random() * (255 + 1));
-         const g = Math.floor(Math.random() * (255 + 1));
-         const b = Math.floor(Math.random() * (255 + 1));
-         square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+         const r = Math.floor(Math.random() * 256);
+         const g = Math.floor(Math.random() * 256);
+         const b = Math.floor(Math.random() * 256);
+         target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
       } else {
-         square.style.backgroundColor = colorMode.value;
-      } 
-    }  
+         target.style.backgroundColor = colorMode.value;
+      }
+   }
 
-    // Desktop
-    square.addEventListener('mouseover', applyColor);
+   // Desktop hover
+   square.addEventListener('mouseover', () => applyColor(square));
 
-    // Mobile touch color
-    square.addEventListener('touchstart', (e) => {
-        e.preventDefault();  
-        applyColor();
-    }, { passive: false });
+   // Mobile tap
+   square.addEventListener('touchstart', (e) => {
+      e.preventDefault();  
+      applyColor(square);
+   }, { passive: false });
 
-
-    square.addEventListener('touchmove', (e) => {
-        e.preventDefault();  
-        const touch = e.touches[0];
-        console.log(touch)
-        const element = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (element && element.classList.contains('square')) {
-            applyColor(element);
-        }
-    }, { passive: false });
-   
+   // Mobile drag coloring
+   square.addEventListener('touchmove', (e) => {
+      e.preventDefault();  
+      const touch = e.touches[0];
+      const element = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (element && element.classList.contains('square')) {
+         applyColor(element);
+      }
+   }, { passive: false });
 }
+
