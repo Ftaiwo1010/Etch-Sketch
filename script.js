@@ -56,7 +56,7 @@ function addColorBehavior(square) {
          square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
       } else {
          square.style.backgroundColor = colorMode.value;
-      }  
+      } 
     }  
 
     // Desktop
@@ -74,7 +74,7 @@ function addColorBehavior(square) {
         const touch = e.touches[0];
         console.log(touch)
         const element = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (element && element.classList.contains('.square')) {
+        if (element && element.classList.contains('square')) {
             applyColor(element);
         }
     }, { passive: false });
